@@ -1,3 +1,4 @@
+import { MomentService } from './../../../services/moment.service';
 import { Moment } from './../../../Moments';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,7 +11,7 @@ export class NewMomentComponent implements OnInit {
 
   btnText = 'Compartilhar';
 
-  constructor() { }
+  constructor(private momentService: MomentService ) { }
 
   ngOnInit(): void {
   }
@@ -27,7 +28,9 @@ export class NewMomentComponent implements OnInit {
     }
 
     //TODO
-      // enviar para o service
+
+    await this.momentService.createMoment(formData).subscribe();
+
       // exibir mensagem
       // redirect
 
