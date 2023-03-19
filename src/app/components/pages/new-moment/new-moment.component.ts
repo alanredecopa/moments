@@ -1,6 +1,9 @@
+//import { Route } from '@ioc:Adonis/Core/Route';
+import { MessagesService } from './../../../services/messages.service';
 import { MomentService } from './../../../services/moment.service';
 import { Moment } from './../../../Moments';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-moment',
@@ -11,7 +14,11 @@ export class NewMomentComponent implements OnInit {
 
   btnText = 'Compartilhar';
 
-  constructor(private momentService: MomentService ) { }
+  constructor(
+    private momentService: MomentService,
+    private MessagesService: MessagesService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
   }
@@ -27,12 +34,12 @@ export class NewMomentComponent implements OnInit {
       formData.append('image', moment.image);
     }
 
-    //TODO
+      await this.momentService.createMoment(formData).subscribe();
 
-    await this.momentService.createMoment(formData).subscribe();
+      this.MessagesService.add('Momento adicionado com sucesso');
 
-      // exibir mensagem
-      // redirect
+
+      this.router.navigate(['/']);
 
     }
 
